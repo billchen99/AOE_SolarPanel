@@ -1,0 +1,258 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{float}
+\usepackage{graphicx}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{The Sun is a Deadly Laser}
+
+\title{Electrical Engineering Department Project, 2018 Spring Semester}
+
+\author{Bill Chen, Alex Yao, Angela Wang, Callie Singer, Bennet BRown\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+}
+\maketitle
+
+\section*{Design}
+
+\subsection*{System Overview: }
+
+Columbia secondary school has requested a solar panel system that
+will accommodate the needs of their school garden. Our solar panel
+system will be located in front of Pupin Hall and consists of 12 solar
+panels with dimensions 39.7 x 26.7 x 1.4 inches. Students from the
+secondary school will come daily to collect their Windy Nation 12V
+charged battery. They will also bring back their uncharged battery
+from the previous day to be recharged. 
+
+Our design has been greatly simplified to accomodate to the available
+materials and simplifying the design process. However, an overview
+of our calculations regarding the the materials can be found in the
+calculations section. Our goal is to be able to power the Garden AC
+System for 2 hours at 120V and 20 amps. 
+
+\subsection*{The Solar Panel:}
+
+We narrowed our panels down to two candidates:\\
+
+\textbf{Renogy 100 Watt 12 Volt Polycrystalline Solar Panel}\\
+
+\begin{tabular}{|c|c|}
+\hline 
+Maximum Power  & 100W\tabularnewline
+\hline 
+\hline 
+Optimum Operating Voltage  & 17.8 V\tabularnewline
+\hline 
+Optimum Operating Current & 5.62 A\tabularnewline
+\hline 
+Weight: 16.5 lbs  & Dimensions: 39.7 x 26.7 x 1.4 inches\tabularnewline
+\hline 
+Cost  & \$105\tabularnewline
+\hline 
+\end{tabular}
+
+\textbf{100 Watt Flexible Solar Panel with SunPower Solar Cells from
+Windy Nation}\\
+
+\begin{tabular}{|c|c|}
+\hline 
+Maximum Power & 100W\tabularnewline
+\hline 
+\hline 
+Optimum Operating Voltage & 17.8V\tabularnewline
+\hline 
+Maximum Power Point & 5.62A\tabularnewline
+\hline 
+Weight 4.1 lbs (1.85 kg) & Module Dimension (L x W x H) (41.7\textquotedbl{} x 21.3\textquotedbl{}
+x 0.1\textquotedbl{})\tabularnewline
+\hline 
+Cost & \$179.99\tabularnewline
+\hline 
+\end{tabular}\\
+
+We can see from these two tables that the performance ratings of the
+two are similar but the monocrystalline 100 Watt Solar Panel is flexible,
+thinner and lighter. It also costs a lot more (179 vs 105). Due to
+our needs for a long term power solution that will probably be mounted
+permanently. We chose the polycrystalline solar panel to save on costs. 
+
+\subsection*{Other Materials and Setup:}
+
+As for other materials, we choose the following for simplicity and
+compatibility after careful research. Batteries are chosen to 1) have
+deep cycling compatibility, 2) be able to hold the necessary 4800
+WHr energy needed to power the garden AC system.\\
+
+\begin{table}[H]
+
+\caption{Other parts}
+
+\begin{tabular}{|c|c|c|}
+\hline 
+Batteries & 12V 100 Amp-Hour Deep Cycle AGM Sealed Lead Acid BatteryX6  & \$185x6=\$1110\tabularnewline
+\hline 
+\hline 
+Inverter & VertaMax 3000 Watt 12V Pure Sine Wave Power Inverter DC to AC & \$416\tabularnewline
+\hline 
+Regulator & TrakMax 30L LCD MPPT 30A Solar Charge Controller Regulator  & \$200\tabularnewline
+\hline 
+\end{tabular}
+\end{table}
+
+The batteries will be connected in parallel. During charging, it will
+be connected to the regulator which utilizes MPPT algorithm to maxmize
+the power output of the solar cell array. The regulator will be connected
+to the solar cells. The solar cells will be connected in parallel
+as there will be very little distance between the regulator and the
+cells: loss due to high amperage energy transfer is minimized. The
+system is also more immune to the shading problem - one panel shaded
+will not affect the whole string, a problem worth considering as our
+system will be surrounded by buildings. 6 batteries will be able to
+store a total of 7200 WHr of energy. Even though technically only
+4 batteries are needed for our need of 4800 WHr, the extra two batteries
+should be able to hold excess charge in times when the sun has more
+available energy and can be used as backup power for rainly and the
+winte days.\\
+
+When discharging, the batteries will be hooked up to the power inverter
+which boosts the 12V battery voltage to 120V, allowing the garden
+AC system to draw the power.
+
+\section*{Calculations:}
+
+We calculated the amount of Solar Energy expected per square meter
+in New York with Python. We first calculated the distance of Earth
+from the Sun as a function. We then took into account of New York's
+location and Earth's declination angle. Python source code of our
+calculation is available on github {[}1{]} The permittivity of the
+atmosphere to solar radiation was adjusted to be 0.75 to fit the lowerbound
+of our model to available official data {[}2{]}. A quick reference
+to other resources finds our assumption rational {[}3{]}. We assumed
+that we are able to obtain around 6 hours of perfect sunlight everyday
+as our conservative estimate. The advantage of using a model like
+ours is that we can not only predict how many solar panels we would
+need to charge our batteries to 4800 watt-hours, we can effectively
+predict how much solar energy we can expect from the sun each and
+everyday of the year. 
+
+\begin{figure}[H]
+\caption{Our solar energy graph for an entire year}
+
+\includegraphics{\string"/Users/bill/Documents/untitled folder/Figure_1\string".png}
+\end{figure}
+
+Taking the lowest of the year: 2700 Watt-Hours/$m^{2}$, which roughly
+occurs at the 350th day mark, and assuming the efficiency coefficient
+of the solar panels to be 0.2 and taking into account each solar panel's
+area: 0.687$m^{2}$, we can roughly approximate how many solar panels
+we would need. 
+
+Each panel output during the day of lowest sun exposure:
+\[
+0.687m^{2}\times0.2\times2700WHr/m^{2}=370.98WHr
+\]
+\[
+4800WHr/370.98WHr=12.938Panels
+\]
+
+Since our estimate is extremely conservative (we did not take into
+account of the left over charge we may have from the previous day
+or any other time of the year and we have vastly underestimated daylight
+time), we should be able to round down our estimation and 12 solar
+panels should be sufficient to run our garden.
+
+A few select points of our data is calculated here and put onto a
+table:
+
+\begin{table}
+
+\caption{Select Data Points}
+
+\begin{tabular}{|c|c|c|}
+\hline 
+Day & Total Energy in WHr & \# of hours of garden power\tabularnewline
+\hline 
+\hline 
+1 & 4719 & 1.96\tabularnewline
+\hline 
+50 & 6875 & 2.86\tabularnewline
+\hline 
+100 & 10173 & 4.23\tabularnewline
+\hline 
+150 & 11716 & 4.88\tabularnewline
+\hline 
+200 & 11569 & 4.82\tabularnewline
+\hline 
+250 & 9755 & 4.06\tabularnewline
+\hline 
+300 & 6459 & 2.69\tabularnewline
+\hline 
+350 & 4436 & 1.84\tabularnewline
+\hline 
+\end{tabular}
+\end{table}
+
+\subsection*{Cost}
+
+As for total cost Solar panels:
+\[
+105\times12=\$1260
+\]
+
+We add everything above together, obtaining:
+\[
+1260+416+200+1110=\$2986
+\]
+
+Along with installation fees and such, we are estimating a budget
+proposal of around $\$3500$ for a relatively robust system.
+
+\section*{References}
+
+{[}1{]} https://github.com/billchen99/AOE\_SolarPanel/blob/master/solar\_alex1.py\\
+{[}2{]} \emph{Solar Energy Resource Throughout New York}, http://www.asrc.cestm.albany.edu/perez/publications/\\
+{[}3{]} \emph{Solar Energy To Earth http://energyeducation.ca/encyclopedia/Solar\_energy\_to\_the\_Earth}
+\end{document}
