@@ -6,7 +6,7 @@ import numpy as np
 
 AU = 1.496*10**11 # m
 P0 = 3.8*10**26 # W
-SHIELD = 0.48
+SHIELD = 0.75
 latitude_deg = 40.8107
 longitude_deg = 73.9561
 
@@ -54,7 +54,7 @@ def get_surface_energy_tracking(day,duration): # energy per square meter when pa
 plot_data = {}
 for t in range(365):
     plot_data[t] = get_surface_energy_tracking(t,4)
-plt.plot(plot_data.values())
+#plt.plot(plot_data.values())
 #plt.show()
 
 day = 1;
@@ -67,9 +67,16 @@ val2 = fsolve(f, np.array([3]))
 print(val2)
 print (f(val2))
 #isdlkfjalskdjfasjdf
-total = integrate.quad(lambda t: get_surface_energy_tracking(t, 6), 1, 365)
+total = integrate.quad(lambda t: get_surface_energy_tracking(t, 8), 1, 365)
 #print(total[0]/365)
-
+plot_data = {}
 for i in range(1, 366):
     #print(E,get_surface_energy_tracking(i,6))
-    print(E,get_surface_energy_horizontal(i,val2[0],val[0]))
+    print(i,E,get_surface_energy_horizontal(i,val2[0],val[0]))
+    plot_data[i]=get_surface_energy_horizontal(i,val2[0],val[0])
+plt.plot(plot_data.values())
+plt.ylabel("Energy/m^2 per day in watt hours")
+plt.xlabel("Day of the year in day")
+plt.title("Daily Total Energy Exposure per Meter at Ground Level in New York")
+plt.show()
+

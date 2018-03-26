@@ -27,6 +27,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -218,7 +219,7 @@ System Overview:
 Columbia secondary school has requested a solar panel system that will accommoda
 te the needs of their school garden.
  Our solar panel system will be located in front of Pupin Hall and consists
- of 6 solar panels with dimensions 39.7 x 26.7 x 1.4 inches.
+ of 10 solar panels with dimensions 39.7 x 26.7 x 1.4 inches.
  Students from the secondary school will come daily to collect their Windy
  Nation 12V charged battery.
  They will also bring back their uncharged battery from the previous day
@@ -369,14 +370,6 @@ $105
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -518,7 +511,7 @@ We can see from these two tables that the performance ratings of the two
 \end_layout
 
 \begin_layout Subsection*
-Other Materials:
+Other Materials and Setup:
 \end_layout
 
 \begin_layout Standard
@@ -533,11 +526,34 @@ As for other materials, we choose the following for simplicity and compatibility
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Other parts
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
+<lyxtabular version="3" rows="3" columns="3">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
@@ -553,7 +569,7 @@ Batteries
 \begin_inset Text
 
 \begin_layout Plain Layout
-12V 100 Amp-Hour Deep Cycle AGM Sealed Lead Acid Battery X6 
+12V 100 Amp-Hour Deep Cycle AGM Sealed Lead Acid BatteryX6 
 \end_layout
 
 \end_inset
@@ -562,7 +578,7 @@ Batteries
 \begin_inset Text
 
 \begin_layout Plain Layout
-$185x6=1110
+$185x6=$1110
 \end_layout
 
 \end_inset
@@ -573,7 +589,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Inverter
 \end_layout
 
 \end_inset
@@ -582,7 +598,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+VertaMax 3000 Watt 12V Pure Sine Wave Power Inverter DC to AC
 \end_layout
 
 \end_inset
@@ -591,36 +607,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
+$416
 \end_layout
 
 \end_inset
@@ -631,7 +618,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Regulator
 \end_layout
 
 \end_inset
@@ -640,7 +627,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+TrakMax 30L LCD MPPT 30A Solar Charge Controller Regulator 
 \end_layout
 
 \end_inset
@@ -649,7 +636,7 @@ $185x6=1110
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+$200
 \end_layout
 
 \end_inset
@@ -660,6 +647,162 @@ $185x6=1110
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The batteries will be connected in parallel.
+ During charging, it will be connected to the regulator which utilizes MPPT
+ algorithm to maxmize the power output of the solar cell array.
+ The regulator will be connected to the solar cells.
+ The solar cells will be connected in parallel as there will be very little
+ distance between the regulator and the cells: loss due to high amperage
+ energy transfer is minimized.
+ The system is also more immune to the shading problem - one panel shaded
+ will not affect the whole string, a problem worth considering as our system
+ will be surrounded by buildings.
+ 6 batteries will be able to store a total of 7200 WHr of energy.
+ Even though technically only 4 batteries are needed for our need of 4800
+ WHr, the extra two batteries should be able to hold excess charge in times
+ when the sun has more available energy and can be used as backup power
+ for rainly and the winte days.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When discharging, the batteries will be hooked up to the power inverter
+ which boosts the 12V battery voltage to 120V, allowing the garden AC system
+ to draw the power.
+\end_layout
+
+\begin_layout Section*
+Calculations:
+\end_layout
+
+\begin_layout Standard
+We calculated the amount of Solar Energy expected per square meter in New
+ York with Python.
+ We first calculated the distance of Earth from the Sun as a function.
+ We then took into account of New York's location and Earth's declination
+ angle.
+ Python source code of our calculation is available on github [1] The permittivi
+ty of the atmosphere to solar radiation was adjusted to be 0.75 to fit the
+ lowerbound of our model to available official data [2].
+ A quick reference to other resources finds our assumption rational [3].
+ We assumed that we are able to obtain around 6 hours of perfect sunlight
+ everyday as our conservative estimate.
+ The advantage of using a model like ours is that we can not only predict
+ how many solar panels we would need to charge our batteries to 4800 watt-hours,
+ we can effectively predict how much solar energy we can expect from the
+ sun each and everyday of the year.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Our solar energy graph for an entire year
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/bill/Documents/untitled folder/Figure_1.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Taking the lowest of the year: 2700 Watt-Hours/
+\begin_inset Formula $m^{2}$
+\end_inset
+
+, which roughly occurs at the 350th day mark, and assuming the efficiency
+ coefficient of the solar panels to be 0.2 and taking into account each solar
+ panel's area: 0.687
+\begin_inset Formula $m^{2}$
+\end_inset
+
+, we can roughly approximate how many solar panels we would need.
+ 
+\end_layout
+
+\begin_layout Standard
+Each panel output during the day of lowest sun exposure:
+\begin_inset Formula 
+\[
+0.687m^{2}\times0.2\times2700WHr/m^{2}=370.98WHr
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+4800WHr/370.98WHr=12.938Panels
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since our estimate is extremely conservative: we did not take into account
+ of the left over charge we may have from the previous day or any other
+ time of the year
+\end_layout
+
+\begin_layout Section*
+References
+\end_layout
+
+\begin_layout Standard
+[1] https://github.com/billchen99/AOE_SolarPanel/blob/master/solar_alex1.py
+\begin_inset Newline newline
+\end_inset
+
+[2] 
+\emph on
+Solar Energy Resource Throughout New York
+\emph default
+, http://www.asrc.cestm.albany.edu/perez/publications/
+\begin_inset Newline newline
+\end_inset
+
+[3] 
+\emph on
+Solar Energy To Earth
 \end_layout
 
 \end_body
